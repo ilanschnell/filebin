@@ -12,15 +12,14 @@
 /* command line options */
 int table = 0;
 int names = 0;
-int help = 0;
 
 /* byte counts and total count */
 long long bin[256], n = 0;
 
+#define USAGE  printf("usage: %s [-nthv] [file] ...\n", argv[0])
 
-void usage(char *progname)
+void help()
 {
-    printf("Usage: %s [-nthv] [file] ...\n", progname);
     printf("\n\
 Calculates the frequency of bytes of file(s) or stdin.\n\
 Options:\n\
@@ -28,16 +27,19 @@ Options:\n\
   -t   show table\n\
   -h   display this help and exit\n\
   -v   display version number and exit\n");
-    exit(2);
 }
 
-/* changes the global variables: table, names, help */
+/* changes the global variables: table, names */
 void process_options(int argc, char *argv[])
 {
     int op;
 
     while ((op = getopt(argc, argv, "nthv")) != -1)
         switch(op) {
+        case 'h':
+            USAGE;
+            help();
+            exit(0);
         case 'n':
             names = table = 1;
             break;
@@ -48,7 +50,8 @@ void process_options(int argc, char *argv[])
             printf("filebin 1.0.0\n");
             exit(0);
         default:
-            help = 1;
+            USAGE;
+            exit(1);
         }
 }
 
@@ -157,9 +160,7 @@ int main(int argc, char *argv[])
     for (c = 0; c < 256; c++)
         bin[c] = 0;
 
-    if (help)
-        usage(argv[0]);
-    else if (argc == optind)
+    if (argc == optind)
         process_fp(stdin);
     else
         while (optind < argc)
