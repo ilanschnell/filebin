@@ -110,7 +110,7 @@ void showTable()
 
     for (c = 0; c < 256; c++)
         if (bin[c]) {
-            if(names)
+            if (names)
                 printf("%4d %8s %10lld\n", c, name(c), bin[c]);
             else
                 printf("%4d %10lld\n", c, bin[c]);
@@ -133,12 +133,12 @@ void showSum()
     printf(" 127 (Del) ............... :%12lld\n", bin[127]);
 
     b1 = bin[11]+bin[12];
-    for(c = 1; c <=  8; c++) b1 += bin[c];
-    for(c =14; c <= 31; c++) b1 += bin[c];
+    for (c =  1; c <=  8; c++) b1 += bin[c];
+    for (c = 14; c <= 31; c++) b1 += bin[c];
     printf("Others (1..8,11,12,14..31) :%12lld\n", b1);
 
     b2 = 0;
-    for(c = 128; c <= 255; c++) b2 += bin[c];
+    for (c = 128; c <= 255; c++) b2 += bin[c];
     printf("Others (128..255) ........ :%12lld\n", b2);
 
     printf("                             -----------\n");
