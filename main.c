@@ -1,9 +1,8 @@
 /*
-   Author: Ilan Schnell, 2008
+   Author: Ilan Schnell, 2008-2011
    License: BSD
 */
 
-#include <assert.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,17 +11,19 @@
 /* command line options */
 int table = 0;
 int names = 0;
+int full = 0;
 
 /* byte counts and total count */
 long long bin[256], n = 0;
 
 #define USAGE  printf("usage: %s [-nthv] [file] ...\n", argv[0])
 
-void help()
+void help(void)
 {
     printf("\n\
 Calculates the frequency of bytes of file(s) or stdin.\n\
 Options:\n\
+  -f   display full table (including zero counts, implies -t)\n\
   -n   show names when displaying table (implies -t)\n\
   -t   show table\n\
   -h   display this help and exit\n\
@@ -34,12 +35,15 @@ void process_options(int argc, char *argv[])
 {
     int op;
 
-    while ((op = getopt(argc, argv, "nthv")) != -1)
+    while ((op = getopt(argc, argv, "nfthv")) != -1)
         switch(op) {
         case 'h':
             USAGE;
             help();
             exit(0);
+        case 'f':
+            full = table = 1;
+            break;
         case 'n':
             names = table = 1;
             break;
@@ -103,7 +107,7 @@ char *name(int c)
     return res;
 }
 
-void showTable()
+void showTable(void)
 {
     int c;
 
@@ -112,7 +116,7 @@ void showTable()
                "------------------------\n");
 
     for (c = 0; c < 256; c++)
-        if (bin[c]) {
+        if (full || bin[c]) {
             if (names)
                 printf("%4d %8s %10lld\n", c, name(c), bin[c]);
             else
@@ -120,7 +124,7 @@ void showTable()
         }
 }
 
-void showSum()
+void showSum(void)
 {
     long long a, b1, b2;
     int c;
@@ -146,8 +150,6 @@ void showSum()
 
     printf("                             -----------\n");
     printf("Total .................... :%12lld\n", n);
-
-    assert(n == a + bin[0] + bin[9] + bin[10] + bin[13] + bin[127] + b1 + b2);
 }
 
 int main(int argc, char *argv[])
@@ -171,5 +173,5 @@ int main(int argc, char *argv[])
     else
         showSum();
 
-    exit(0);
+    return 0;
 }
