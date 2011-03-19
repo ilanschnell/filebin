@@ -16,7 +16,7 @@ int full = 0;
 /* byte counts and total count */
 long long bin[256], n = 0;
 
-#define USAGE  printf("usage: %s [-nthv] [file] ...\n", argv[0])
+#define USAGE  printf("usage: %s [-fnthv] [file] ...\n", argv[0])
 
 void help(void)
 {
