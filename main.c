@@ -107,7 +107,7 @@ char *name(int c)
     return res;
 }
 
-void showTable(void)
+void show_table(void)
 {
     int c;
 
@@ -124,7 +124,7 @@ void showTable(void)
         }
 }
 
-void showSum(void)
+void show_sum(void)
 {
     long long a, b1, b2;
     int c;
@@ -169,9 +169,9 @@ int main(int argc, char *argv[])
             process_file(argv[optind++]);
 
     if (table)
-        showTable();
+        show_table();
     else
-        showSum();
+        show_sum();
 
     return 0;
 }
