@@ -132,7 +132,7 @@ void show_sum(void)
     a = 0;
     for (c = 32; c <= 126; c++)
         a += bin[c];
-    printf("ASCII ( 32..126 )........  :%12lld\n", a);
+    printf("ASCII (32..126)..........  :%12lld\n", a);
     printf("   0 (Null)............... :%12lld\n", bin[0]);
     printf("   9 (Tab)................ :%12lld\n", bin[9]);
     printf("  10 (LF)................. :%12lld\n", bin[10]);
