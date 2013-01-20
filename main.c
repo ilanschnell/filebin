@@ -1,5 +1,5 @@
 /*
-   Author: Ilan Schnell, 2008-2011
+   Author: Ilan Schnell, 2008-2013
    License: BSD
 */
 
@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define VERSION  "1.0.1"
 
 /* command line options */
 int table = 0;
@@ -51,7 +53,7 @@ void process_options(int argc, char *argv[])
             table = 1;
             break;
         case 'v':
-            printf("filebin 1.0.0\n");
+            printf("filebin " VERSION "\n");
             exit(0);
         default:
             USAGE;
