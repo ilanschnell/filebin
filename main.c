@@ -1,5 +1,5 @@
 /*
-   Author: Ilan Schnell, 2008-2013
+   Author: Ilan Schnell, 2008-2019
    License: BSD
 */
 
@@ -8,15 +8,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define VERSION  "1.0.1"
+#define VERSION  "1.0.2"
 
 /* command line options */
-int table = 0;
-int names = 0;
-int full = 0;
+int table, names, full;
 
-/* byte counts and total count */
-long long bin[256], n = 0;
+/* byte counts */
+long long bin[256];
 
 #define USAGE  printf("usage: %s [-fnthv] [file] ...\n", argv[0])
 
@@ -32,11 +30,12 @@ Options:\n\
   -v   display version number and exit\n");
 }
 
-/* changes the global variables: table, names */
+/* changes the global variables: table, names, full */
 void process_options(int argc, char *argv[])
 {
     int op;
 
+    table = names = full = 0;
     while ((op = getopt(argc, argv, "nfthv")) != -1)
         switch(op) {
         case 'h':
@@ -65,10 +64,8 @@ void process_fp(FILE *fp)
 {
     int c;
 
-    while ((c = fgetc(fp)) != EOF) {
+    while ((c = fgetc(fp)) != EOF)
         bin[c]++;
-        n++;
-    }
 }
 
 void process_file(char *fname)
@@ -128,7 +125,7 @@ void show_table(void)
 
 void show_sum(void)
 {
-    long long a, b1, b2;
+    long long a, b1, b2, n;
     int c;
 
     a = 0;
@@ -141,7 +138,7 @@ void show_sum(void)
     printf("  13 (CR)................. :%12lld\n", bin[13]);
     printf(" 127 (Del) ............... :%12lld\n", bin[127]);
 
-    b1 = bin[11]+bin[12];
+    b1 = bin[11] + bin[12];
     for (c =  1; c <=  8; c++) b1 += bin[c];
     for (c = 14; c <= 31; c++) b1 += bin[c];
     printf("Others (1..8,11,12,14..31) :%12lld\n", b1);
@@ -150,6 +147,8 @@ void show_sum(void)
     for (c = 128; c <= 255; c++) b2 += bin[c];
     printf("Others (128..255) ........ :%12lld\n", b2);
 
+    n = 0;
+    for (c = 0; c <= 255; c++) n += bin[c];
     printf("                             -----------\n");
     printf("Total .................... :%12lld\n", n);
 }
