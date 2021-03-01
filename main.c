@@ -1,5 +1,5 @@
 /*
-   Author: Ilan Schnell, 2008-2019
+   Author: Ilan Schnell, 2008-2021
    License: BSD
 */
 
@@ -96,7 +96,7 @@ char *name(int c)
         res[1] = '\0';
     }
 #define M(_c, _name)  else if (c==_c) strcpy(res, "<" _name ">")
-    M(0, "Null");
+    M(0, "NUL");
     M(9, "Tab");
     M(10, "LF");
     M(13, "CR");
@@ -132,7 +132,7 @@ void show_sum(void)
     for (c = 32; c <= 126; c++)
         a += bin[c];
     printf("ASCII (32..126)..........  :%12lld\n", a);
-    printf("   0 (Null)............... :%12lld\n", bin[0]);
+    printf("   0 (NUL)................ :%12lld\n", bin[0]);
     printf("   9 (Tab)................ :%12lld\n", bin[9]);
     printf("  10 (LF)................. :%12lld\n", bin[10]);
     printf("  13 (CR)................. :%12lld\n", bin[13]);
