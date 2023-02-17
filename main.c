@@ -92,7 +92,7 @@ char *name(int c)
     strcpy(res, ".");  /* default */
 
     if (c >= 33 && c <= 126) {
-        res[0] = (char)c;
+        res[0] = (char) c;
         res[1] = '\0';
     }
 #define M(_c, _name)  else if (c==_c) strcpy(res, "<" _name ">")
