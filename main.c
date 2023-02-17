@@ -1,5 +1,5 @@
 /*
-   Author: Ilan Schnell, 2008-2021
+   Author: Ilan Schnell, 2008-2023
    License: BSD
 */
 
@@ -99,6 +99,7 @@ char *name(int c)
     M(0, "NUL");
     M(9, "Tab");
     M(10, "LF");
+    M(11, "VTab");
     M(13, "CR");
     M(32, "Space");
     M(127, "Del");
@@ -131,17 +132,18 @@ void show_sum(void)
     a = 0;
     for (c = 32; c <= 126; c++)
         a += bin[c];
-    printf("ASCII (32..126)..........  :%12lld\n", a);
+    printf("ASCII (32..126)........... :%12lld\n", a);
     printf("   0 (NUL)................ :%12lld\n", bin[0]);
     printf("   9 (Tab)................ :%12lld\n", bin[9]);
     printf("  10 (LF)................. :%12lld\n", bin[10]);
+    printf("  11 (VTab)............... :%12lld\n", bin[11]);
     printf("  13 (CR)................. :%12lld\n", bin[13]);
     printf(" 127 (Del) ............... :%12lld\n", bin[127]);
 
-    b1 = bin[11] + bin[12];
+    b1 = bin[12];
     for (c =  1; c <=  8; c++) b1 += bin[c];
     for (c = 14; c <= 31; c++) b1 += bin[c];
-    printf("Others (1..8,11,12,14..31) :%12lld\n", b1);
+    printf("Others (1..8,12,14..31) .. :%12lld\n", b1);
 
     b2 = 0;
     for (c = 128; c <= 255; c++) b2 += bin[c];

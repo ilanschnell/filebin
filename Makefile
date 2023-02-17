@@ -4,5 +4,5 @@ filebin: main.c
 clean:
 	rm -f filebin
 
-test:
+test: filebin
 	./filebin Makefile
