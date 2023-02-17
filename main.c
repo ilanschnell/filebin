@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define VERSION  "1.0.2"
+#define VERSION  "1.0.3"
 
 /* command line options */
 int table, names, full;
