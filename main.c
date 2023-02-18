@@ -81,13 +81,11 @@ void process_file(char *fname)
     fclose(fp);
 }
 
-/* Write the name of character c into buff,
-   e.g. "A", "B", "<Space>", "<LF>"
-*/
+/* write the name of character c into buff, e.g. "A", "<Space>", "<LF>" */
 void char_name(char *buff, int c)
 {
-    switch (c) {
 #define CASE(_c, _name)  case _c: strcpy(buff, "<" _name ">"); break
+    switch (c) {
         CASE('\0', "NUL");
         CASE('\t', "Tab");
         CASE('\n', "LF");
@@ -95,7 +93,6 @@ void char_name(char *buff, int c)
         CASE('\r', "CR");
         CASE(' ', "Space");
         CASE(127, "Del");
-#undef CASE
     default:
         if (c >= 33 && c <= 126) {
             buff[0] = (char) c;
@@ -104,6 +101,7 @@ void char_name(char *buff, int c)
         else
             strcpy(buff, ".");
     }
+#undef CASE
 }
 
 void show_table(void)
