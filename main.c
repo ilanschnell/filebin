@@ -86,20 +86,24 @@ void process_file(char *fname)
 */
 void char_name(char *buff, int c)
 {
-    if (c >= 33 && c <= 126) {
-        buff[0] = (char) c;
-        buff[1] = '\0';
+    switch (c) {
+#define CASE(_c, _name)  case _c: strcpy(buff, "<" _name ">"); break
+        CASE('\0', "NUL");
+        CASE('\t', "Tab");
+        CASE('\n', "LF");
+        CASE('\v', "VTab");
+        CASE('\r', "CR");
+        CASE(' ', "Space");
+        CASE(127, "Del");
+#undef CASE
+    default:
+        if (c >= 33 && c <= 126) {
+            buff[0] = (char) c;
+            buff[1] = '\0';
+        }
+        else
+            strcpy(buff, ".");
     }
-#define M(_c, _name)  else if (c == _c) strcpy(buff, "<" _name ">")
-    M(0, "NUL");
-    M(9, "Tab");
-    M(10, "LF");
-    M(11, "VTab");
-    M(13, "CR");
-    M(32, "Space");
-    M(127, "Del");
-#undef M
-    else strcpy(buff, ".");
 }
 
 void show_table(void)
