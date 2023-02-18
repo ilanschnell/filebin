@@ -81,21 +81,16 @@ void process_file(char *fname)
     fclose(fp);
 }
 
-/* Returns the name of character c as a string,
+/* Write the name of character c into buff,
    e.g. "A", "B", "<Space>", "<LF>"
-   When the character has no specific name, "." is returned.
 */
-char *name(int c)
+void char_name(char *buff, int c)
 {
-    static char res[8];
-
-    strcpy(res, ".");  /* default */
-
     if (c >= 33 && c <= 126) {
-        res[0] = (char) c;
-        res[1] = '\0';
+        buff[0] = (char) c;
+        buff[1] = '\0';
     }
-#define M(_c, _name)  else if (c==_c) strcpy(res, "<" _name ">")
+#define M(_c, _name)  else if (c == _c) strcpy(buff, "<" _name ">")
     M(0, "NUL");
     M(9, "Tab");
     M(10, "LF");
@@ -104,11 +99,12 @@ char *name(int c)
     M(32, "Space");
     M(127, "Del");
 #undef M
-    return res;
+    else strcpy(buff, ".");
 }
 
 void show_table(void)
 {
+    char buff[16];
     int c;
 
     if (names)
@@ -117,8 +113,10 @@ void show_table(void)
 
     for (c = 0; c < 256; c++)
         if (full || bin[c]) {
-            if (names)
-                printf("%4d %8s %10lld\n", c, name(c), bin[c]);
+            if (names) {
+                char_name(buff, c);
+                printf("%4d %8s %10lld\n", c, buff, bin[c]);
+            }
             else
                 printf("%4d %10lld\n", c, bin[c]);
         }
