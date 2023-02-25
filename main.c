@@ -3,10 +3,10 @@
    License: BSD
 */
 
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <getopt.h>
 
 #define VERSION  "1.0.3"
 
